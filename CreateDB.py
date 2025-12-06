@@ -44,10 +44,9 @@ CREATE TABLE IF NOT EXISTS Exam
 (ExamID INTEGER PRIMARY KEY AUTOINCREMENT,
 Name TEXT)''')
 
-#Not autoincrementing ExamEntryID as will create that using Pandas
 curs.execute('''
 CREATE TABLE IF NOT EXISTS ExamEntry
-(ExamEntryID INTEGER PRIMARY KEY,
+(ExamEntryID INTEGER PRIMARY KEY AUTOINCREMENT,
 ExamID INTEGER,
 StudentID INTEGER,
 Grade INTEGER
