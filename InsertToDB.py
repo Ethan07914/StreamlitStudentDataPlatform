@@ -75,7 +75,7 @@ def IsFatherPrimary(row):
 
 Mothers = Data[['GuardianOneID', 'Medu', 'Mjob', 'guardian']]
 Mothers = Mothers.apply(IsMotherPrimary, axis='columns')
-Mothers = Mothers.to_dict()
+Mothers = Mothers.to_dict('records')
 # for row in Mothers:
 #     curs.execute('''
 #     INSERT INTO Guardian
@@ -95,7 +95,7 @@ SELECT * FROM Guardian
 
 Fathers = Data[['GuardianTwoID', 'Fedu', 'Fjob', 'guardian']]
 Fathers = Fathers.apply(IsFatherPrimary, axis='columns')
-Fathers = Fathers.to_dict()
+Fathers = Fathers.to_dict('records')
 # for row in Fathers:
 #     curs.execute('''
 #     INSERT INTO Guardian
@@ -113,6 +113,44 @@ SELECT * FROM Guardian
     WHERE RelationshipToStudent = "Father"''').fetchall())
 
 
+ExamsG1 = Data[['StudentID',  'G1']]
+ExamsG1 = ExamsG1.to_dict('records')
+# for Exam in ExamsG1:
+#     curs.execute('''
+#     INSERT INTO ExamEntry (ExamID, StudentID, Grade)
+#     VALUES (?, ?, ?)''',
+#                  (1, Exam['StudentID'], Exam['G1']))
+#     con.commit()
+
+print(curs.execute('''
+SELECT * FROM ExamEntry
+ WHERE ExamID = 1''').fetchall())
+
+ExamsG2 = Data[['StudentID',  'G2']]
+ExamsG2 = ExamsG2.to_dict('records')
+# for Exam in ExamsG2:
+#     curs.execute('''
+#     INSERT INTO ExamEntry (ExamID, StudentID, Grade)
+#     VALUES (?, ?, ?)''',
+#                  (2, Exam['StudentID'], Exam['G2']))
+#     con.commit()
+
+print(curs.execute('''
+SELECT * FROM ExamEntry
+ WHERE ExamID = 2''').fetchall())
+
+ExamsG3 = Data[['StudentID',  'G3']]
+ExamsG3 = ExamsG3.to_dict('records')
+# for Exam in ExamsG3:
+#     curs.execute('''
+#     INSERT INTO ExamEntry (ExamID, StudentID, Grade)
+#     VALUES (?, ?, ?)''',
+#                  (3, Exam['StudentID'], Exam['G3']))
+#     con.commit()
+
+print(curs.execute('''
+SELECT * FROM ExamEntry
+ WHERE ExamID = 3''').fetchall())
 
 
 
