@@ -5,7 +5,7 @@ curs = con.cursor() #Create a cursor to interact with database
 
 #Not using autoincrement on StudentID as will be generating that using pandas
 curs.execute('''
-CREATE TABLE IF NOT EXISTS students 
+CREATE TABLE IF NOT EXISTS Student
 (StudentID INTEGER PRIMARY KEY, 
 SchoolID INTEGER, 
 Sex TEXT,
@@ -42,7 +42,8 @@ CREATE TABLE IF NOT EXISTS School
 curs.execute('''
 CREATE TABLE IF NOT EXISTS Exam
 (ExamID INTEGER PRIMARY KEY AUTOINCREMENT,
-Name TEXT)''')
+Code TEXT,
+Description TEXT)''')
 
 curs.execute('''
 CREATE TABLE IF NOT EXISTS ExamEntry
@@ -68,5 +69,7 @@ IsPrimary BOOLEAN)
 ''')
 
 con.commit()
+
+
 
 

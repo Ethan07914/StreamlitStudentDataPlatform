@@ -22,13 +22,15 @@ Country = 'Portugal'
 
 print(curs.execute('SELECT * FROM School').fetchall())
 
-Exams = ('G1', 'G2', 'G3') #Tuple of exam names
+Exams = [{'Code': 'G1', 'Description': 'First Period Grade'},
+         {'Code': 'G2', 'Description': 'Second Period Grade'},
+         {'Code': 'G3', 'Description': 'Final Grade'}] #List of Exam dictionaries
 # for exam in Exams:
 #     curs.execute('''
 #     INSERT INTO Exam
-#     (Name)
-#     VALUES (?)''',
-#                  (exam,))
+#     (Code, Description)
+#     VALUES (?, ?)''',
+#                  (exam["Code"], exam["Description"]))
 #     con.commit()
 
 print(curs.execute('SELECT * FROM Exam').fetchall())
@@ -50,7 +52,73 @@ EducationLevelDict = \
 
 print(curs.execute('SELECT * FROM EducationLevel').fetchall())
 
-print(Data[['StudentID', 'Medu', 'Mjob', 'Fedu', 'Fjob']])
+def SetGuardianIDs(row, LengthOfDF):
+    row['GuardianOneID'] = row['StudentID']
+    row['GuardianTwoID'] = row['StudentID'] + LengthOfDF
+    return row
+
+Data = SetGuardianIDs(Data, len(Data))
+
+def IsMotherPrimary(row):
+    if row['guardian'] == 'mother':
+        row['IsPrimary'] = True
+    else:
+        row['IsPrimary'] = False
+    return row
+
+def IsFatherPrimary(row):
+    if row['guardian'] == 'father':
+        row['IsPrimary'] = True
+    else:
+        row['IsPrimary'] = False
+    return row
+
+Mothers = Data[['GuardianOneID', 'Medu', 'Mjob', 'guardian']]
+Mothers = Mothers.apply(IsMotherPrimary, axis='columns')
+Mothers = Mothers.to_dict()
+# for row in Mothers:
+#     curs.execute('''
+#     INSERT INTO Guardian
+#     (GuardianID, RelationshipToStudent, EducationLevelID, Occupation, IsPrimary)
+#     VALUES (?, ?, ?, ?, ?)''',
+#                  (row['GuardianOneID'],
+#                   'Mother',
+#                   row['Medu'],
+#                   row['Mjob'],
+#                   row['IsPrimary']))
+#     con.commit()
+
+print(curs.execute('''
+SELECT * FROM Guardian
+    WHERE RelationshipToStudent = "Mother"''').fetchall())
+
+
+Fathers = Data[['GuardianTwoID', 'Fedu', 'Fjob', 'guardian']]
+Fathers = Fathers.apply(IsFatherPrimary, axis='columns')
+Fathers = Fathers.to_dict()
+# for row in Fathers:
+#     curs.execute('''
+#     INSERT INTO Guardian
+#     (GuardianID, RelationshipToStudent, EducationLevelID, Occupation, IsPrimary)
+#     VALUES (?, ?, ?, ?, ?)''',
+#                  (row['GuardianTwoID'],
+#                   'Father',
+#                   row['Fedu'],
+#                   row['Fjob'],
+#                   row['IsPrimary']))
+#     con.commit()
+
+print(curs.execute('''
+SELECT * FROM Guardian
+    WHERE RelationshipToStudent = "Father"''').fetchall())
+
+
+
+
+
+
+
+
 
 
 
