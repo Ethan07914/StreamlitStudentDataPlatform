@@ -2,7 +2,8 @@ import sqlite3 as sql
 
 con = sql.connect('studentperformance.db') #Establish connection to database
 curs = con.cursor() #Create a cursor to interact with database
-
+# curs.execute('''
+# DROP TABLE Student''')
 #Not using autoincrement on StudentID as will be generating that using pandas
 curs.execute('''
 CREATE TABLE IF NOT EXISTS Student
@@ -14,17 +15,21 @@ AddressType TEXT,
 FamilySize INTEGER,
 GuardianOneID INTEGER,
 GuardianTwoID INTEGER,
-Commute INTEGER,
-TimeSpentStudying INTEGER,
+ParentLivingStatus TEXT,
+Commute TEXT,
+ReasonForSchoolChoice TEXT,
+TimeSpentStudying TEXT,
 FailureCount INTEGER,
 EducationalSupport BOOLEAN,
 ParentalSupport BOOLEAN,
+ReceivesTutoring BOOLEAN,
+ExtraCurricular BOOLEAN,
 AttendedNursery BOOLEAN,
 PlansOnHigherEducation BOOLEAN,
 HasInternet BOOLEAN,
-RelationshipStatus TEXT,
+InRelationship BOOLEAN,
 FamilyRelationshipRating INTEGER,
-Freetime INTEGER,
+BusynessScale INTEGER,
 SocialScore INTEGER,
 WeekdayAlcoholConsumption INTEGER,
 WeekendAlcoholConsumption INTEGER,

@@ -152,6 +152,84 @@ print(curs.execute('''
 SELECT * FROM ExamEntry
  WHERE ExamID = 3''').fetchall())
 
+def GetSchoolID(row):
+    if row['school'] == 'GP':
+        row['SchoolID'] = 1
+    elif row['school'] == 'MS':
+        row['SchoolID'] = 2
+    return row
+
+def GetTravelTime(row):
+    if row['traveltime'] == 1:
+        row['traveltime'] = '<15 minutes'
+    elif row['traveltime'] == 2:
+        row['traveltime'] = '15-30 minutes'
+    elif row['traveltime'] == 3:
+        row['traveltime'] = '30-60 minutes'
+    elif row['traveltime'] == 4:
+        row['traveltime'] = '>1 hour'
+    return row
+
+def GetStudyTime(row):
+    if row['studytime'] == 1:
+        row['studytime'] = '<2 hours'
+    elif row['studytime'] == 2:
+        row['studytime'] = '2-5 hours'
+    elif row['studytime'] == 3:
+        row['studytime'] = '5-10 hours'
+    elif row['studytime'] == 4:
+        row['studytime'] = '>10 hours'
+    return row
+
+Data = Data.apply(GetSchoolID, axis='columns')
+Data = Data.apply(GetTravelTime, axis='columns')
+Data = Data.apply(GetStudyTime, axis='columns')
+
+Students = Data[['StudentID', 'SchoolID', 'sex', 'age', 'address', 'famsize', 'GuardianOneID', 'GuardianTwoID',
+                 'Pstatus', 'traveltime', 'reason', 'studytime', 'failures', 'schoolsup', 'famsup', 'paid',
+                 'activities', 'nursery', 'higher', 'internet', 'romantic', 'famrel', 'freetime', 'goout',
+                 'Dalc', 'Walc', 'health', 'absences']]
+Students = Students.to_dict('records')
+# for student in Students:
+#     curs.execute('''
+#     INSERT INTO Student
+#     (StudentID,
+#     SchoolID,
+#     Sex,
+#     Age,
+#     AddressType,
+#     FamilySize,
+#     GuardianOneID,
+#     GuardianTwoID,
+#     ParentLivingStatus,
+#     Commute,
+#     ReasonForSchoolChoice,
+#     TimeSpentStudying,
+#     FailureCount,
+#     EducationalSupport,
+#     ParentalSupport,
+#     ReceivesTutoring,
+#     ExtraCurricular,
+#     AttendedNursery,
+#     PlansOnHigherEducation,
+#     HasInternet,
+#     InRelationship,
+#     FamilyRelationshipRating,
+#     BusynessScale,
+#     SocialScore,
+#     WeekdayAlcoholConsumption,
+#     WeekendAlcoholConsumption,
+#     HealthScore,
+#     AbsenceCount)
+#     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
+#                  (student['StudentID'], student['SchoolID'], student['sex'], student['age'], student['address'], student['famsize'], student['GuardianOneID'], student['GuardianTwoID'],
+#                  student['Pstatus'], student['traveltime'], student['reason'], student['studytime'], student['failures'], student['schoolsup'], student['famsup'], student['paid'],
+#                  student['activities'], student['nursery'], student['higher'], student['internet'], student['romantic'], student['famrel'], student['freetime'], student['goout'],
+#                  student['Dalc'], student['Walc'], student['health'], student['absences']))
+#     con.commit()
+
+print(curs.execute('''
+SELECT * FROM Student LIMIT 10''').fetchall())
 
 
 
