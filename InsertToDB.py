@@ -231,6 +231,8 @@ Students = Students.to_dict('records')
 print(curs.execute('''
 SELECT * FROM Student LIMIT 10''').fetchall())
 
+con.close()
+
 
 
 

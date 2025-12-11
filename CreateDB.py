@@ -2,8 +2,7 @@ import sqlite3 as sql
 
 con = sql.connect('studentperformance.db') #Establish connection to database
 curs = con.cursor() #Create a cursor to interact with database
-# curs.execute('''
-# DROP TABLE Student''')
+
 #Not using autoincrement on StudentID as will be generating that using pandas
 curs.execute('''
 CREATE TABLE IF NOT EXISTS Student
