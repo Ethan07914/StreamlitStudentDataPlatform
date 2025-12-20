@@ -73,18 +73,35 @@ def IsFatherPrimary(row):
         row['IsPrimary'] = False
     return row
 
+def GetOccupationID(row):
+    #This way the same function can be used for mothers and fathers as you don't have to worry about the name of the column and you know the cols will be in the same order
+    if row.iloc[2] == 'at_home':
+        row['OccupationID'] = 1
+    elif row.iloc[2] == 'health':
+        row['OccupationID'] = 2
+    elif row.iloc[2] == 'other':
+        row['OccupationID'] = 3
+    elif row.iloc[2] == 'services':
+        row['OccupationID'] = 4
+    elif row.iloc[2] == 'teacher':
+        row['OccupationID'] = 5
+    return row
+
+
+
 Mothers = Data[['GuardianOneID', 'Medu', 'Mjob', 'guardian']]
 Mothers = Mothers.apply(IsMotherPrimary, axis='columns')
+Mothers = Mothers.apply(GetOccupationID, axis='columns')
 Mothers = Mothers.to_dict('records')
 # for row in Mothers:
 #     curs.execute('''
 #     INSERT INTO Guardian
-#     (GuardianID, RelationshipToStudent, EducationLevelID, Occupation, IsPrimary)
+#     (GuardianID, RelationshipToStudent, EducationLevelID, OccupationID, IsPrimary)
 #     VALUES (?, ?, ?, ?, ?)''',
 #                  (row['GuardianOneID'],
 #                   'Mother',
 #                   row['Medu'],
-#                   row['Mjob'],
+#                   row['OccupationID'],
 #                   row['IsPrimary']))
 #     con.commit()
 
@@ -95,16 +112,17 @@ SELECT * FROM Guardian
 
 Fathers = Data[['GuardianTwoID', 'Fedu', 'Fjob', 'guardian']]
 Fathers = Fathers.apply(IsFatherPrimary, axis='columns')
+Fathers = Fathers.apply(GetOccupationID, axis='columns')
 Fathers = Fathers.to_dict('records')
 # for row in Fathers:
 #     curs.execute('''
 #     INSERT INTO Guardian
-#     (GuardianID, RelationshipToStudent, EducationLevelID, Occupation, IsPrimary)
+#     (GuardianID, RelationshipToStudent, EducationLevelID, OccupationID, IsPrimary)
 #     VALUES (?, ?, ?, ?, ?)''',
 #                  (row['GuardianTwoID'],
 #                   'Father',
 #                   row['Fedu'],
-#                   row['Fjob'],
+#                   row['OccupationID'],
 #                   row['IsPrimary']))
 #     con.commit()
 
@@ -231,7 +249,19 @@ Students = Students.to_dict('records')
 print(curs.execute('''
 SELECT * FROM Student LIMIT 10''').fetchall())
 
+
+# for job in Data.Mjob.unique():
+#     curs.execute('''
+#     INSERT INTO Occupation
+#     (Description)
+#     VALUES (?)''',
+#                  (job,))
+#     con.commit()
+
+print(curs.execute('''SELECT * FROM Occupation''').fetchall())
+
 con.close()
+
 
 
 
