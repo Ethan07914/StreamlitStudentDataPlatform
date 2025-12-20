@@ -59,7 +59,7 @@ Grade INTEGER
 
 curs.execute('''
 CREATE TABLE IF NOT EXISTS EducationLevel
-(EducationLevelID INTEGER PRIMARY KEY AUTOINCREMENT,
+(EducationLevelID INTEGER PRIMARY KEY AUTOINCREMENT ,
 Description TEXT)''')
 
 #Not autoincrementing GuardianID as will create that using Pandas
@@ -68,9 +68,19 @@ CREATE TABLE IF NOT EXISTS Guardian
 (GuardianID INTEGER PRIMARY KEY,
 RelationshipToStudent TEXT,
 EducationLevelID INTEGER, 
-Occupation TEXT,
+OccupationID INTEGER,
 IsPrimary BOOLEAN)
 ''')
+
+curs.execute('''
+CREATE TABLE IF NOT EXISTS Occupation
+(ID INTEGER PRIMARY KEY AUTOINCREMENT,
+Description TEXT)''')
+
+
+# curs.execute('''
+# UPDATE EducationLevel
+# SET EducationLevelID = EducationLevelID - 1''')
 
 con.commit()
 
