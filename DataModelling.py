@@ -1,6 +1,7 @@
 import pandas as pd
 
 def IsMale(row):
+    #Students can either be male or female 1 = True 0 = False
     if row['Sex'] == 'M':
         row['IsMale'] = 1
     else:
@@ -8,6 +9,7 @@ def IsMale(row):
     return row
 
 def HasRuralAddress(row):
+    #R means rural U means Urban
     if row['AddressType'] == 'R':
         row['IsRuralAddress'] = 1
     else:
@@ -46,9 +48,10 @@ def ChoseSchoolFor(row):
     elif row['ReasonForSchoolChoice'] == 'reputation':
         row['ChoseSchoolForCourse'], row['ChoseSchoolForReputation'], row['ChoseSchoolForProximity'] = 0, 1, 0
     elif row['ReasonForSchoolChoice'] == 'home':
-        row['ChoseSchoolForCourse'], row['ChoseSchoolForReputation'], row['ChoseSchoolForHome'] = 0, 0, 1
+        row['ChoseSchoolForCourse'], row['ChoseSchoolForReputation'], row['ChoseSchoolForProximity'] = 0, 0, 1
     else:
-        row['ChoseSchoolForCourse'], row['ChoseSchoolForReputation'], row['ChoseSchoolForHome'] = 0, 0, 0
+        #If 0,0,0 then the student has chosen the school of another reason
+        row['ChoseSchoolForCourse'], row['ChoseSchoolForReputation'], row['ChoseSchoolForProximity'] = 0, 0, 0
     return row
 
 def StudyHoursGreaterThan(row):
@@ -65,10 +68,11 @@ def StudyHoursGreaterThan(row):
 def ConvertBoolToInt(row):
     BoolCols =  ['EducationalSupport', 'ParentalSupport', 'ReceivesTutoring', 'ExtraCurricular',
                  'AttendedNursery', 'PlansOnHigherEducation', 'HasInternet', 'InRelationship']
+    #Loops through all the columns that contain booleans (yes/no) and replaces that for 1/0
     for col in BoolCols:
         if row[col] == 'yes':
             row[col] = 1
-        else:
+        elif row[col] == 'no':
             row[col] = 0
     return row
 
