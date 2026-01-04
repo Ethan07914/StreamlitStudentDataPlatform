@@ -76,6 +76,16 @@ def ConvertBoolToInt(row):
             row[col] = 0
     return row
 
+def FindEquivalent(row, value):
+    if row.ExamThreeGrade == value:
+        row['Equivalent'] = 'Yes'
+    else:
+        row['Equivalent'] = 'No'
+    return row
+
+def ConvertSchoolNameToID(SchoolName, BaseData):
+    ID = BaseData.loc[BaseData['SchoolName'] == SchoolName].SchoolID.unique() #Finds the unique school id where the school name is equal to what was entered
+    return ID
 
 
 

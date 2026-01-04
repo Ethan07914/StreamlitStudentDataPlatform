@@ -1,9 +1,9 @@
 def GetFilterValues(Entered, Options):
     Values = []
     if Entered in Options[1:3]:
-        Values.append([Entered])
+        Values.append([Entered]) #If the user didn't select Either as the option return the actual value
     else:
-        Values.append(Options[1:3])
+        Values.append(Options[1:3]) #If the user did select Either return both the other two options
     return Values
 
 def InequalitiesCalculator(frame, col, inequality='≥ Greater than or equal to', value=0):
