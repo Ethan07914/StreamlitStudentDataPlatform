@@ -71,13 +71,13 @@ with tab3:
 with tab4:
  plt.clf()
  ExamOne = ExamThreeGradeAnalysis(Data, None, 'ExamOneGrade').FilteredData.rename(columns={'ExamOneGrade': 'Grade'})
- ExamOne['Exam'] = 'ExamOneGrade' #To allow for the hue
+ ExamOne['Exam'] = 'One' #To allow for the hue
 
  ExamTwo = ExamThreeGradeAnalysis(Data, None, 'ExamTwoGrade').FilteredData.rename(columns={'ExamTwoGrade': 'Grade'})
- ExamTwo['Exam'] = 'ExamTwoGrade' #Creates Exam columns and sets value equal to ExamTwoGrade for every row
+ ExamTwo['Exam'] = 'Two' #Creates Exam columns and sets value equal to ExamTwoGrade for every row
 
  Exams = pd.concat([ExamOne, ExamTwo]) #Combines the two data frames
- st.pyplot(sns.lmplot(data=Exams, x='Grade', y='ExamThreeGrade', hue='Exam', palette='prism').figure)
+ st.pyplot(sns.lmplot(data=Exams, x='Grade', y='ExamThreeGrade', hue='Exam', palette='cool').figure)
 
 
 

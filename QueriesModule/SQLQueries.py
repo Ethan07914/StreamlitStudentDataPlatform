@@ -54,3 +54,7 @@ E1.Grade AS ExamOneGrade, E2.Grade AS ExamTwoGrade, E3.Grade AS ExamThreeGrade
     AS E3 ON s.StudentID = E3.StudentID'''
 
 
+SchoolQuery = '''SELECT SchoolID, SchoolName
+                FROM School'''
+
+
