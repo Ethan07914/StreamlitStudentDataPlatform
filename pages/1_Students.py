@@ -67,5 +67,11 @@ st.dataframe(frame)
 st.scatter_chart(frame, x='StudentID', y='ExamThreeGrade', color="#ff4e4e") #Dynamically creates a scatter chart
 with col1:
     st.metric(value=len(frame), label='Number of Students') #Metrics are calculated dynamically so update when the frame is changed
-with col2:
     st.metric(value=round(frame.ExamThreeGrade.mean(), 2), label='Average Exam Three Grade')
+    st.metric(value=len(frame[frame.ExamThreeGrade >= 0.7 * 20]), label="A's")
+    st.metric(value=len(frame[(frame.ExamThreeGrade >= 0.6 * 20) * (frame.ExamThreeGrade < 0.7 * 20)]), label="B's")  # less than 70% but more than 60%
+with col2:
+    st.metric(value=len(frame[frame.ExamThreeGrade >= 0.4 * 20]), label='Passes')  # Assumption that a 40% grade is a pass
+    st.metric(value=len(frame[frame.ExamThreeGrade < 0.4 * 20]), label='Fails')  # Assumption that a 40% grade is a pass
+    st.metric(value=len(frame[(frame.ExamThreeGrade >= 0.5 * 20)*(frame.ExamThreeGrade < 0.6 * 20)]), label="C's")
+    st.metric(value=len(frame[(frame.ExamThreeGrade >= 0.4 * 20)*(frame.ExamThreeGrade < 0.5 * 20)]), label="D's")
