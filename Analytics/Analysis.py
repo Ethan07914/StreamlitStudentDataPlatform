@@ -7,7 +7,8 @@ class ExamThreeGradeAnalysis:
         self.palette = palette
         self.xcol = xcol
         self.ycol = ycol
-        self.FilteredData = self.FilterData() #Setting the variable to the result of the function means these values are computed when a new object is initialised
+        self.FilteredData = self.FilterData()
+        #Setting the variable to the result of the function means these values are computed when a new object is initialised
         self.MeanByCategory = self.GetMeanByCategory()
 
     def FilterData(self):
@@ -33,6 +34,9 @@ class ExamThreeGradeAnalysis:
         for container in barplot.containers:  # link: https://www.geeksforgeeks.org/python/how-to-show-values-on-seaborn-barplot/
             barplot.bar_label(container) #Gives a label to each bar within the bar plot
         return barplot
+
+
+
 
 
 
