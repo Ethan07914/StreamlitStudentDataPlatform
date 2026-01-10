@@ -64,7 +64,9 @@ frame = Data.loc[
 
 
 st.dataframe(frame)
+
 st.scatter_chart(frame, x='StudentID', y='ExamThreeGrade', color="#ff4e4e") #Dynamically creates a scatter chart
+
 with col1:
     st.metric(value=len(frame), label='Number of Students') #Metrics are calculated dynamically so update when the frame is changed
     st.metric(value=round(frame.ExamThreeGrade.mean(), 2), label='Average Exam Three Grade')
