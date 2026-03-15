@@ -14,3 +14,5 @@ def PredictGrade(TrainingData, PredictionData):
     GradePredictor = RandomForestRegressor(n_estimators=10, random_state=0) #This model will use 10 trees
     GradePredictor.fit(x, y) #Training the model
     return np.round(GradePredictor.predict(PredictionData),0) #returning the prediction as a whole number as grades cannot be decimals
+
+
