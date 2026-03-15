@@ -77,3 +77,4 @@ with col2:
     st.metric(value=len(frame[frame.ExamThreeGrade < 0.4 * 20]), label='Fails')  # Assumption that a 40% grade is a pass
     st.metric(value=len(frame[(frame.ExamThreeGrade >= 0.5 * 20)*(frame.ExamThreeGrade < 0.6 * 20)]), label="C's")
     st.metric(value=len(frame[(frame.ExamThreeGrade >= 0.4 * 20)*(frame.ExamThreeGrade < 0.5 * 20)]), label="D's")
+

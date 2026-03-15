@@ -20,3 +20,5 @@ def InequalitiesCalculator(frame, col, inequality='≥ Greater than or equal to'
         return frame[col] == value
     else:
         return frame[col] != value
+
+
